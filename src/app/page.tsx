@@ -1,9 +1,9 @@
-import HeroSection from "@/components/ui/modules/HeroSection";
+import HeroSectionClient from "@/components/ui/modules/Home/HeroSection/HeroSectionClient";
 
 const HomePage = () => {
   return (
     <main>
-      <HeroSection />
+      <HeroSectionClient />
     </main>
   );
 };

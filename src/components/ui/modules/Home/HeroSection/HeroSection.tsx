@@ -1,18 +1,13 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import profileImage from "@/assets/profile.jpeg";
 
-export default function HeroSection() {
-  const [isLoaded, setIsLoaded] = useState(false);
+interface HeroSectionProps {
+  isLoaded?: boolean;
+}
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
+export default function HeroSection({ isLoaded }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -103,6 +98,7 @@ export default function HeroSection() {
                 width={500}
                 height={500}
                 alt="Mehedi Mehad"
+                priority
                 // className="inset-0 w-full h-full object-cover rounded-2xl border border-primary/20"
                 className="inset-0 w-full h-full object-cover rounded-2xl"
               />
