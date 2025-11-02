@@ -1,11 +1,10 @@
-import { Button } from "@/components/ui/button";
+import HeroSection from "@/components/ui/modules/HeroSection";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen">
-      <h1>This is HomePage component</h1>
-      <Button>Click me</Button>
-    </div>
+    <main>
+      <HeroSection />
+    </main>
   );
 };
 
