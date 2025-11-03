@@ -68,7 +68,7 @@ const projects = [
     id: 2,
     title: "Task Management App",
     description:
-      "Collaborative task management application with real-time updates and team features.",
+      "Collaborative task management application with real-time updates and team features. Support for  project management.",
     category: "frontend",
     technologies: ["React", "Firebase", "Tailwind CSS"],
     image: "Project 2",
@@ -79,7 +79,7 @@ const projects = [
     id: 3,
     title: "API Gateway",
     description:
-      "Scalable API gateway with authentication, rate limiting, and request logging.",
+      "Scalable API gateway with authentication, rate limiting, and request logging. Support for multiple services and APIs.",
     category: "backend",
     technologies: ["Node.js", "Express", "MongoDB"],
     image: "Project 3",
@@ -90,7 +90,7 @@ const projects = [
     id: 4,
     title: "Analytics Dashboard",
     description:
-      "Real-time analytics dashboard with data visualization and custom reports.",
+      "Real-time analytics dashboard with data visualization and custom reports. Support for multiple users and project management.",
     category: "full-stack",
     technologies: ["React", "Chart.js", "PostgreSQL"],
     image: "Project 4",
@@ -101,7 +101,7 @@ const projects = [
     id: 5,
     title: "Open Source CLI Tool",
     description:
-      "Command-line tool for automating development workflows and deployment processes.",
+      "Command-line tool for automating development workflows and deployment processes. Support for multiple services.",
     category: "backend",
     technologies: ["Node.js", "TypeScript", "CLI"],
     image: "Project 5",
@@ -112,7 +112,7 @@ const projects = [
     id: 6,
     title: "Real-time Chat App",
     description:
-      "WebSocket-based chat application with user authentication and message history.",
+      "WebSocket-based chat application with user authentication and message history. Support for multiple users and project management.",
     category: "full-stack",
     technologies: ["React", "Socket.io", "Node.js"],
     image: "Project 6",
