@@ -11,7 +11,7 @@ const ProjectsGrid = () => {
   const filteredProjects =
     filter === "all" ? projects : projects.filter((p) => p.category === filter);
   return (
-    <section className="py-0 border-b border-border">
+    <section className="pb-20 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
