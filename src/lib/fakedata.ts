@@ -31,4 +31,25 @@ const featuredProjects = [
   },
 ];
 
-export { featuredProjects };
+const recentBlogs = [
+  {
+    id: 1,
+    title: "Building Scalable React Applications",
+    date: "2024-10-15",
+    readTime: "8 min read",
+  },
+  {
+    id: 2,
+    title: "Next.js 15: What's New and Why You Should Upgrade",
+    date: "2024-10-10",
+    readTime: "6 min read",
+  },
+  {
+    id: 3,
+    title: "My Journey from Frontend to Full Stack Developer",
+    date: "2024-10-05",
+    readTime: "10 min read",
+  },
+];
+
+export { featuredProjects, recentBlogs };

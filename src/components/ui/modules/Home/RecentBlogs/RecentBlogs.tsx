@@ -1,17 +1,17 @@
-"use client";
-
-import ProjectCard from "@/components/ui/shared/Card/ProjectCard";
-import { featuredProjects } from "@/lib/fakedata";
+import BlogCard from "@/components/ui/shared/Card/BlogCard";
+import { recentBlogs } from "@/lib/fakedata";
 import { ArrowRight } from "lucide-react";
+
 import Link from "next/link";
-const ProjectsSection = () => {
+
+const RecentBlogs = () => {
   return (
-    <section className="py-20 ">
+    <section className="py-20 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-10">
-          <h2 className="text-4xl font-bold">Featured Projects</h2>
+          <h2 className="text-4xl font-bold">My Blogs</h2>
           <Link
-            href="/projects"
+            href="/blogs"
             className="text-primary hover:text-accent transition-colors flex items-center gap-2"
           >
             View All <ArrowRight size={20} />
@@ -19,8 +19,8 @@ const ProjectsSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+          {recentBlogs.map((blog) => (
+            <BlogCard key={blog.id} blog={blog} />
           ))}
         </div>
       </div>
@@ -28,4 +28,4 @@ const ProjectsSection = () => {
   );
 };
 
-export default ProjectsSection;
+export default RecentBlogs;

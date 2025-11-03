@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface ProjectCardProps {
@@ -13,7 +14,8 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
-    <div
+    <Link
+      href={`/projects/${project.id}`}
       key={project.id}
       className="group relative rounded-xl border border-primary/20 bg-linear-to-br from-primary/5 to-secondary/5 backdrop-blur-sm overflow-hidden hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 cursor-pointer hover-lift"
     >
@@ -44,7 +46,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

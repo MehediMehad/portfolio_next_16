@@ -25,7 +25,7 @@ export default function Navbar() {
             href="/"
             className="text-2xl font-bold glow-text hover:opacity-80 transition-opacity"
           >
-            Dev
+            Mehedi Mehad
           </Link>
 
           {/* Desktop Navigation */}
