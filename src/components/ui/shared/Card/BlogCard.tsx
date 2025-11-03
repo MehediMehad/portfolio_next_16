@@ -14,7 +14,12 @@ const BlogCard = ({
     >
       <div className="flex items-center gap-2 text-sm text-foreground/60 mb-3">
         <Calendar size={16} />
-        {new Date(blog.date).toLocaleDateString()}
+        {(() => {
+          const date = new Date(blog.date);
+          return isNaN(date.getTime())
+            ? "Date unavailable"
+            : date.toLocaleDateString();
+        })()}
       </div>
       <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
         {blog.title}

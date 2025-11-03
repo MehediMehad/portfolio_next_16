@@ -19,7 +19,7 @@ const RecentBlogs = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {recentBlogs.map((blog) => (
+          {recentBlogs?.map((blog) => (
             <BlogCard key={blog.id} blog={blog} />
           ))}
         </div>
