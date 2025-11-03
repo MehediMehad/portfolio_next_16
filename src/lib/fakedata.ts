@@ -52,4 +52,80 @@ const recentBlogs = [
   },
 ];
 
-export { featuredProjects, recentBlogs };
+const projects = [
+  {
+    id: 1,
+    title: "E-Commerce Platform",
+    description:
+      "A full-featured e-commerce platform with product catalog, shopping cart, and payment integration.",
+    category: "full-stack",
+    technologies: ["React", "Next.js", "Stripe", "PostgreSQL"],
+    image: "Project 1",
+    liveUrl: "#",
+    githubUrl: "#",
+  },
+  {
+    id: 2,
+    title: "Task Management App",
+    description:
+      "Collaborative task management application with real-time updates and team features.",
+    category: "frontend",
+    technologies: ["React", "Firebase", "Tailwind CSS"],
+    image: "Project 2",
+    liveUrl: "#",
+    githubUrl: "#",
+  },
+  {
+    id: 3,
+    title: "API Gateway",
+    description:
+      "Scalable API gateway with authentication, rate limiting, and request logging.",
+    category: "backend",
+    technologies: ["Node.js", "Express", "MongoDB"],
+    image: "Project 3",
+    liveUrl: "#",
+    githubUrl: "#",
+  },
+  {
+    id: 4,
+    title: "Analytics Dashboard",
+    description:
+      "Real-time analytics dashboard with data visualization and custom reports.",
+    category: "full-stack",
+    technologies: ["React", "Chart.js", "PostgreSQL"],
+    image: "Project 4",
+    liveUrl: "#",
+    githubUrl: "#",
+  },
+  {
+    id: 5,
+    title: "Open Source CLI Tool",
+    description:
+      "Command-line tool for automating development workflows and deployment processes.",
+    category: "backend",
+    technologies: ["Node.js", "TypeScript", "CLI"],
+    image: "Project 5",
+    liveUrl: "#",
+    githubUrl: "#",
+  },
+  {
+    id: 6,
+    title: "Real-time Chat App",
+    description:
+      "WebSocket-based chat application with user authentication and message history.",
+    category: "full-stack",
+    technologies: ["React", "Socket.io", "Node.js"],
+    image: "Project 6",
+    liveUrl: "#",
+    githubUrl: "#",
+  },
+];
+
+const filters = [
+  { label: "All", value: "all" },
+  { label: "Full Stack", value: "full-stack" },
+  { label: "Backend", value: "backend" },
+  { label: "Frontend", value: "frontend" },
+  { label: "Feature", value: "feature" },
+];
+export { featuredProjects, recentBlogs, projects, filters };
