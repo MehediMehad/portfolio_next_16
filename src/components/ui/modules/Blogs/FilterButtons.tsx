@@ -86,7 +86,7 @@ const FilterButtons = () => {
     return matchesSearch && matchesCategory;
   });
   return (
-    <section className="pb-12 bg-card/30 border-b border-border">
+    <section className="pb-12 bg-card/30 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Search Bar */}
         <FadeInUp className="mb-8">
