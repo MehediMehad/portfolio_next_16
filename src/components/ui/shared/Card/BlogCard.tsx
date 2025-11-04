@@ -8,7 +8,6 @@ const BlogCard = ({
 }) => {
   return (
     <Link
-      key={blog.id}
       href={`/blogs/${blog.id}`}
       className="group relative rounded-xl border border-primary/20 bg-linear-to-br from-primary/5 to-secondary/5 backdrop-blur-sm overflow-hidden hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 flex flex-col hover-lift p-6"
     >
