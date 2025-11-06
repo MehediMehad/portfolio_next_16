@@ -3,7 +3,7 @@
 import { Mail, Linkedin, Github, Twitter, MapPin, Phone } from "lucide-react";
 import StaggerAnimation from "@/components/ui/shared/Animation/StaggerAnimation";
 import FadeInUp from "@/components/ui/shared/Animation/FadeInUp";
-import ContactInfoItem from "./ContactInfoItem";
+import ContactInfoItem from "../../shared/Card/ContactInfoItem";
 
 export default function ContactInfo() {
   return (
