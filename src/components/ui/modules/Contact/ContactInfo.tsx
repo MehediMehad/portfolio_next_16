@@ -16,7 +16,7 @@ export default function ContactInfo() {
         delay={100}
         icon={Mail}
         title="Email"
-        value="hello@example.com"
+        value="mdmehedihasanmehad@gmail.com"
         copy
       />
 
@@ -24,7 +24,7 @@ export default function ContactInfo() {
         delay={150}
         icon={Phone}
         title="Phone"
-        value="+1 (234) 567-890"
+        value="+880 1604121107"
         copy
       />
 

@@ -56,13 +56,13 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-background pb-20">
       {/* Hero Section */}
-      <section className="py-20 border-b border-border">
+      <section className="pt-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeInUp>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl  font-bold mb-6">
               About <span className="glow-text">Me</span>
             </h1>
-            <p className="text-xl text-foreground/70 leading-relaxed mb-8">
+            <p className="text-lg text-foreground/70 leading-relaxed mb-3">
               I'm a passionate Full Stack Developer with a deep love for
               creating beautiful, performant web applications. With expertise in
               modern technologies like React, Next.js, and Node.js, I build

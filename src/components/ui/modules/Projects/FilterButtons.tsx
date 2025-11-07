@@ -8,7 +8,7 @@ const FilterButtons = () => {
   const [filter, setFilter] = useState("all");
 
   return (
-    <section className="py-12 border-t border-border">
+    <section className="py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap gap-3">
           {filters.map((f, index) => (
