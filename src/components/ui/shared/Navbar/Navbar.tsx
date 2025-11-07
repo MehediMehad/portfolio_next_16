@@ -12,7 +12,8 @@ export default function Navbar() {
     { label: "About", href: "/about" },
     { label: "Projects", href: "/projects" },
     { label: "Blogs", href: "/blogs" },
-    { label: "Resume", href: "/resume" },
+    // { label: "Resume", href: "/resume" },
+    { label: "Community", href: "/community" },
     { label: "Contact", href: "/contact" },
   ];
 
@@ -34,12 +35,22 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors duration-300 relative group"
+                className="text-sm mt-2.5 font-medium text-foreground/70 hover:text-primary transition-colors duration-300 relative group"
               >
                 {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
+
+            {/* Join Now */}
+            <div className="flex gap-4">
+              <Link
+                href="/join"
+                className="px-4 py-2 text-sm rounded-sm font-medium border border-primary/50 text-primary hover:bg-primary/10 transition-colors"
+              >
+                Join My Circle
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -65,6 +76,17 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+
+            {/* Join Now */}
+            <div className="flex flex-col px-4 pt-2 gap-2">
+              <Link
+                href="/join"
+                className="text-center px-4 text-[1rem] py-2 rounded-sm font-medium border border-primary/50 text-primary hover:bg-primary/10 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Join My Circle
+              </Link>
+            </div>
           </div>
         )}
       </div>
