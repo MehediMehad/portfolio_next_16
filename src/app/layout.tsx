@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/shared/Navbar/Navbar";
 import Footer from "@/components/ui/shared/Footer/Footer";
+import AuthProviders from "@/providers/AuthProviders";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -25,7 +26,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`font-sans antialiased bg-background text-foreground`}>
         <Navbar />
-        {children}
+        <AuthProviders>{children}</AuthProviders>
         <Footer />
         {/* <Analytics /> */}
       </body>
