@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { NavLinks } from "./NavLinks";
 import { AuthButtons } from "./AuthButtons";
 import { MobileMenu } from "./MobileMenu";
+import { MobileNavigation } from "./MobileNavigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,31 +50,11 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden pb-4 space-y-2 animate-in fade-in slide-in-from-top-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block px-4 py-2 text-sm font-medium text-foreground/70 hover:text-primary transition-colors duration-300"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-
-            {/* Join Now */}
-            <div className="flex flex-col px-4 pt-2 gap-2">
-              <Link
-                href="/join"
-                className="text-center px-4 text-[1rem] py-2 rounded-sm font-medium border border-primary/50 text-primary hover:bg-primary/10 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Join My Circle
-              </Link>
-            </div>
-          </div>
-        )}
+        <MobileNavigation
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          navItems={navItems}
+        />
       </div>
     </nav>
   );
