@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 // import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import Navbar from "@/components/ui/shared/Navbar/Navbar";
 import Footer from "@/components/ui/shared/Footer/Footer";
 import AuthProviders from "@/providers/AuthProviders";
+import Navbar from "@/components/ui/shared/Navbar/Navbar";
+// import { Navbar } from "@/components/ui/shared/Navbar/Navbar";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -25,10 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`font-sans antialiased bg-background text-foreground`}>
-        <Navbar />
-        <AuthProviders>{children}</AuthProviders>
-        <Footer />
-        {/* <Analytics /> */}
+        <AuthProviders>
+          <Navbar />
+          {children}
+          <Footer />
+        </AuthProviders>
       </body>
     </html>
   );

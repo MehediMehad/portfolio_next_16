@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { NavLinks } from "./NavLinks";
+import { AuthButtons } from "./AuthButtons";
+import { MobileMenu } from "./MobileMenu";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,26 +34,8 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm mt-2.5 font-medium text-foreground/70 hover:text-primary transition-colors duration-300 relative group"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-              </Link>
-            ))}
-
-            {/* Join Now */}
-            <div className="flex gap-4">
-              <Link
-                href="/join"
-                className="px-4 py-2 text-sm rounded-sm font-medium border border-primary/50 text-primary hover:bg-primary/10 transition-colors"
-              >
-                Join My Circle
-              </Link>
-            </div>
+            <NavLinks />
+            <AuthButtons />
           </div>
 
           {/* Mobile Menu Button */}
