@@ -1,33 +1,17 @@
-"use client";
-
-import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../avatar";
+import { useClickOutsideAndScrollClose } from "@/hooks/useClickOutsideAndScrollClose";
 type Props = {
   onClick?: () => void;
 };
 
 export const AuthButtons = ({ onClick }: Props) => {
-  const { data: session } = useSession();
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside); // Add event listener
-    return () => document.removeEventListener("mousedown", handleClickOutside); // Remove event listener
-  }, []);
+  const { data: session, status } = useSession();
+  const [open, setOpen, dropdownRef] = useClickOutsideAndScrollClose();
 
   // If user not logged in → Show Join button
+  if (status === "loading") return null;
   if (!session?.user) {
     return (
       <Link
@@ -42,7 +26,10 @@ export const AuthButtons = ({ onClick }: Props) => {
 
   // If logged in → Avatar + Dropdown
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div
+      className="relative"
+      ref={dropdownRef as React.RefObject<HTMLDivElement>}
+    >
       <button
         onClick={() => setOpen(!open)}
         className="focus:outline-none"
