@@ -4,8 +4,11 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../avatar";
+type Props = {
+  onClick?: () => void;
+};
 
-export const AuthButtons = ({ onClick }: { onClick?: () => void }) => {
+export const AuthButtons = ({ onClick }: Props) => {
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -45,7 +48,7 @@ export const AuthButtons = ({ onClick }: { onClick?: () => void }) => {
         className="focus:outline-none"
         aria-label="User menu"
       >
-        <Avatar className="cursor-pointer ring-2 ring-transparent hover:ring-primary/50 transition">
+        <Avatar className="cursor-pointer ring-2  ring-primary/80 transition mt-0.5">
           <AvatarImage src={session.user.image || ""} />
           <AvatarFallback>
             {session.user.name

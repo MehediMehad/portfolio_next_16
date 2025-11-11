@@ -1,16 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
 import { NavLinks } from "./NavLinks";
 import { AuthButtons } from "./AuthButtons";
-import { MobileMenu } from "./MobileMenu";
 import { MobileNavigation } from "./MobileNavigation";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
   const navItems = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
@@ -35,26 +30,13 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-8">
-            <NavLinks />
+            <NavLinks navItems={navItems} />
             <AuthButtons />
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
 
         {/* Mobile Navigation */}
-        <MobileNavigation
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          navItems={navItems}
-        />
+        <MobileNavigation navItems={navItems} />
       </div>
     </nav>
   );

@@ -1,15 +1,11 @@
 import Link from "next/link";
 
-export const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Blogs", href: "/blogs" },
-  { label: "Community", href: "/community" },
-  { label: "Contact", href: "/contact" },
-];
+type Props = {
+  navItems: { label: string; href: string }[];
+  onClick?: () => void;
+};
 
-export const NavLinks = ({ onClick }: { onClick?: () => void }) => {
+export const NavLinks = ({ navItems, onClick }: Props) => {
   return (
     <>
       {navItems.map((item) => (
