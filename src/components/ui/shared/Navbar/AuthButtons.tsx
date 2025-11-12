@@ -2,6 +2,7 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../avatar";
 import { useClickOutsideAndScrollClose } from "@/hooks/useClickOutsideAndScrollClose";
+import { LoadingAvatar } from "../Loading/LoadingAvatar";
 type Props = {
   onClick?: () => void;
 };
@@ -10,8 +11,8 @@ export const AuthButtons = ({ onClick }: Props) => {
   const { data: session, status } = useSession();
   const [open, setOpen, dropdownRef] = useClickOutsideAndScrollClose();
 
+  if (status === "loading") return <LoadingAvatar />;
   // If user not logged in → Show Join button
-  if (status === "loading") return null;
   if (!session?.user) {
     return (
       <Link
