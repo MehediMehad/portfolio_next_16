@@ -3,8 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
-import { Calendar, Clock, User, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { Calendar, Clock, User, } from "lucide-react";
 
 export default function BookMeeting() {
   const [selectedDate, setSelectedDate] = useState("");
@@ -50,25 +49,6 @@ export default function BookMeeting() {
 
   return (
     <main className="min-h-screen bg-background pt-20">
-      {/* Header */}
-      {/* <section className="py-20 border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/contact"
-            className="flex items-center gap-2 text-primary hover:text-accent transition-colors mb-6"
-          >
-            <ArrowLeft size={20} />
-            Back to Contact
-          </Link>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Schedule a <span className="glow-text">Meeting</span>
-          </h1>
-          <p className="text-xl text-foreground/70">
-            Let's discuss your project. Choose a time that works best for you.
-          </p>
-        </div>
-      </section> */}
-
       {/* Booking Form */}
       <section className="py-20">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">

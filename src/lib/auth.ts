@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 import Facebook from "next-auth/providers/facebook";
+import { cookies } from "next/headers";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -38,14 +39,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }),
         });
 
-        if (!res.ok) {
-          throw new Error("backend user save fail");
+        const result = await res.json();
+
+        const storeCookies = await cookies();
+
+        if (result?.success) {
+          storeCookies.set("accessToken", result.data.accessToken);
         }
-        return res.ok;
+
+        return result;
       } catch (err) {
-        console.error("⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️", err);
+        console.error("⚠️", err);
         return false;
       }
     },
   },
 });
+
+export const getAuthToken = async (): Promise<string | undefined> => {
+  const TOKEN_COOKIE_NAME = "accessToken";
+  const cookieStore = cookies();
+
+  const token = (await cookieStore).get(TOKEN_COOKIE_NAME)?.value;
+  return token;
+};
