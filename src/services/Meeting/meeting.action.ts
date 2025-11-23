@@ -21,14 +21,10 @@ export async function bookMeeting(formData: FormData) {
     });
 
     const result = await res.json();
-    console.log(result);
-
 
     if (!res.ok) {
         throw new Error(result.message || 'Failed to book meeting');
     }
-
-    revalidatePath('/schedules');
-    // revalidatePath("/meetings/list");
-    // redirect(`/meeting/success?link=${encodeURIComponent(result.data.link)}`);
+    return result
 }
+
