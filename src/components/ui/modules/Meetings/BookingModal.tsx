@@ -45,13 +45,13 @@ export default function BookingModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full shadow-2xl">
+    <div className="fixed inset-0 bg-gray/5 bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
         <h2 className="text-2xl font-bold mb-6 text-center">
           Confirm Your Booking
         </h2>
 
-        <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 mb-6 text-center">
+        <div className="bg-blue-100 rounded-lg p-4 mb-6 text-center">
           <p className="font-semibold">{slot.date}</p>
           <p className="text-lg">
             {slot.startTime} -{" "}

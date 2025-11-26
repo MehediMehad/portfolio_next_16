@@ -1,0 +1,129 @@
+/* Target the wrapper defined in MeetingPage.tsx */
+.calendar-wrapper .fc-theme-standard {
+  /* This ensures the calendar respects the container's max-width and margin set in the JS file */
+}
+
+/* Style the toolbar (header) container */
+.calendar-wrapper .fc-toolbar-chunk {
+  display: flex;
+  align-items: center;
+}
+
+/* Style the title (Month Name) */
+.calendar-wrapper .fc-toolbar-title {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 600; /* semi-bold */
+  color: #1f2937; /* gray-800 */
+}
+
+/* Style all buttons (prev, next, today) */
+.calendar-wrapper .fc-button {
+  background-color: #4f46e5; /* indigo-600 */
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem; /* rounded-md */
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin: 0 4px;
+}
+
+.calendar-wrapper .fc-button:hover {
+  background-color: #4338ca; /* indigo-700 */
+}
+
+/* Style the "today" button specifically */
+.calendar-wrapper .fc-button.fc-button-primary:not(:disabled).fc-button-active,
+.calendar-wrapper .fc-button:focus {
+  background-color: #4338ca;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); /* Focus ring */
+  outline: none;
+}
+
+/* Style table headers (Sun, Mon, Tue...) */
+.calendar-wrapper .fc-col-header-cell {
+  background-color: #f9fafb; /* gray-50 */
+  padding: 0.5rem 0;
+  font-size: 0.875rem; /* sm */
+  font-weight: 600;
+  color: #4b5563; /* gray-600 */
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Style day cells */
+.calendar-wrapper .fc-daygrid-day {
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer; /* Makes it clear the cell is clickable for booking */
+  transition: background-color 0.15s;
+}
+
+.calendar-wrapper .fc-daygrid-day:hover {
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+/* Style the current day cell */
+.calendar-wrapper .fc-day-today {
+  background-color: #eff6ff; /* blue-50 */
+}
+
+/* Style the content wrapper within the day cell to center the number */
+.calendar-wrapper .fc-daygrid-day-frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px; /* Adjust height of the cell */
+}
+
+/* Style the date number itself (which you set with dayCellContent in JS) */
+.calendar-wrapper .fc-daygrid-day-number {
+  padding: 0.5rem;
+  color: #111827; /* gray-900 */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Highlight the current day's number */
+.calendar-wrapper .fc-day-today .fc-daygrid-day-number {
+  background-color: #4f46e5; /* indigo-600 */
+  color: white;
+  font-weight: 700;
+}
+
+/* Style for days outside the current month (optional) */
+.calendar-wrapper .fc-day-other .fc-daygrid-day-number {
+  color: #9ca3af; /* gray-400 */
+}
+
+/* Global styles For Calenders */
+.fc .fc-button-primary:disabled {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.fc .fc-button-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  margin: 0;
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+
+.fc .fc-button-primary:hover {
+  background-color: #084dff;
+  border-color: #2d3748;
+}
+
+.fc .fc .fc-button-primary:active {
+  background-color: #1d2436;
+  border-color: #2d3748;
+}

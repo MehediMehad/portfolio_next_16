@@ -1,13 +1,12 @@
 "use client";
 
+import "@/styles/calenders.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useState } from "react";
 import BookingModal from "@/components/ui/modules/Meetings/BookingModal";
-import Header from "@/components/ui/modules/Meetings/Header";
-
 export default function MeetingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<any>(null);
@@ -22,36 +21,29 @@ export default function MeetingPage() {
       return;
     }
 
+    // For month view dateClick provides only the date string (e.g., "YYYY-MM-DD")
     setSelectedSlot({
-      date: arg.dateStr.split("T")[0],
-      startTime: arg.dateStr.split("T")[1]?.slice(0, 5) || "10:00",
+      date: arg.dateStr,
+      startTime: "10:00", // Default start time as time is not selected in month view
     });
     setIsModalOpen(true);
   };
 
   return (
     <>
-      <div className="min-h-screen bg-background pt-20">
-        {/* <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
-            Book a Meeting with Me
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            Free 30-minute consultation via Zoom or Google Meet
-          </p>
-        </div> */}
+      <div className="min-h-screen pt-20">
         {/* <Header /> */}
 
-        {/* <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6"> */}
-        <div className="bg-white max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 border rounded-2xl shadow-2xl">
+        <div className="bg-white max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 border rounded-2xl shadow-2xl calendar-wrapper">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            initialView="timeGridWeek"
+            initialView="dayGridMonth" // Changed to show only the month view
             headerToolbar={{
               left: "prev,next today",
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay",
+              right: "", // Kept only month view button
             }}
+            // The following props are for time views and can be removed or ignored in dayGridMonth view
             slotMinTime="09:00:00"
             slotMaxTime="22:00:00"
             slotDuration="00:30:00"
@@ -63,12 +55,8 @@ export default function MeetingPage() {
             selectOverlap={false}
             weekends={true}
             nowIndicator={true}
-            locale="en"
             buttonText={{
-              today: "Today",
-              month: "Month",
-              week: "Week",
-              day: "Day",
+              today: "",
             }}
             titleFormat={{ year: "numeric", month: "long" }}
             dayCellContent={(arg: any) => (
