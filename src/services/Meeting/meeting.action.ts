@@ -1,30 +1,82 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { getAuthToken } from "@/lib/auth";
+import { MeetingListResponse } from "@/types";
 
-export async function bookMeeting(formData: FormData) {
-    const scheduleId = formData.get('scheduleId') as string;
-    const title = formData.get('title') as string;
-    const description = (formData.get('description') as string) || undefined;
-    const platform = (formData.get('platform') as string) || 'zoom';
+const API_BASE_URL = "http://192.168.0.101:3001/api/v1";
 
+
+const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
     const token = await getAuthToken();
 
-    const res = await fetch(`http://192.168.0.101:3001/api/v1/meeting`, {
-        method: 'POST',
+    const res = await fetch(`${API_BASE_URL}/${endpoint}`, {
+        ...options,
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             ...(token && { Authorization: `Bearer ${token}` }),
+            ...options.headers,
         },
-        body: JSON.stringify({ scheduleId, title, description, platform }),
     });
 
-    const result = await res.json();
+    const data = await res.json().catch(() => null);
 
     if (!res.ok) {
-        throw new Error(result.message || 'Failed to book meeting');
+        throw new Error(data?.message || "Request failed");
     }
-    return result
+
+    return data as T;
 }
+
+const createMeetingAction = async (formData: FormData) => {
+    const payload = {
+        date: formData.get("date") as string,
+        startTime: formData.get("startTime") as string,
+        endTime: formData.get("endTime") as string,
+        title: formData.get("title") as string,
+        description: (formData.get("description") as string) || undefined,
+        agenda: (formData.get("agenda") as string) || undefined,
+        platform: (formData.get("platform") as string) || "zoom",
+    };
+
+    if (!payload.date || !payload.startTime || !payload.endTime || !payload.title) {
+        throw new Error("Missing required fields");
+    }
+
+    const res = await request("meeting", {
+        method: "POST",
+        body: JSON.stringify(payload),
+    });
+
+    revalidateTag("meetings", "default"); // ✅ revalidate after success
+
+    return res;
+}
+
+const getAllMeetingsAction = async () => {
+    const { data } = await request<MeetingListResponse>("meeting", {
+        method: "GET",
+        next: { tags: ["meetings"] },
+    });
+
+    return data;
+}
+
+const acceptOrRejectMeetingAction = async (meetingId: string, accepted: boolean) => {
+    const res = await request(`meeting/${meetingId}`, {
+        method: "PATCH",
+        body: JSON.stringify({ accepted }),
+    });
+
+    revalidateTag("meetings", "default"); // ✅ refresh cache
+
+    return res;
+}
+export {
+    createMeetingAction,
+    getAllMeetingsAction,
+    acceptOrRejectMeetingAction
+};
+
+
 
