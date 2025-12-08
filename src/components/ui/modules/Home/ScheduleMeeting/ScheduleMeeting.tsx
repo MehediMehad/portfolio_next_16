@@ -12,7 +12,7 @@ const ScheduleMeeting = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            href="/book-meeting"
+            href="/meeting-schedules"
             className="glow-button px-8 py-3 rounded-lg font-semibold"
           >
             Schedule a Meeting
