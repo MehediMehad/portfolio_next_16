@@ -2,9 +2,13 @@
 
 import BookingModal from "@/components/ui/modules/Schedules/BookingModal";
 import CalendarView from "@/components/ui/modules/Schedules/CalendarView";
+import { TMeeting } from "@/types";
 import { useState } from "react";
 
-const SchedulePageUi = () => {
+interface SchedulePageUiProps {
+  meetings: TMeeting[];
+}
+const SchedulePageUi = ({ meetings }: SchedulePageUiProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,7 +35,7 @@ const SchedulePageUi = () => {
         </div>
 
         {/* Calendar Component */}
-        <CalendarView onDateClick={handleDateClick} />
+        <CalendarView onDateClick={handleDateClick} meetings={meetings} />
 
         {/* Booking Modal */}
         {selectedDate && (

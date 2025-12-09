@@ -4,10 +4,14 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { mockBookings, type MeetingType } from "@/lib/mokdata";
+import { TMeeting } from "@/types";
+
 interface CalendarViewProps {
+  meetings: TMeeting[];
   onDateClick: (date: Date) => void;
 }
+
+type MeetingType = TMeeting["agenda"];
 
 const typeColors: Record<
   MeetingType,
@@ -23,10 +27,10 @@ const typeColors: Record<
     text: "text-white",
     border: "border-type-networking",
   },
-  "Project Plan": {
-    bg: "bg-type-project",
+  Casual: {
+    bg: "bg-type-casual",
     text: "text-white",
-    border: "border-type-project",
+    border: "border-type-casual",
   },
   Opportunity: {
     bg: "bg-type-opportunity",
@@ -35,7 +39,10 @@ const typeColors: Record<
   },
 };
 
-export default function CalendarView({ onDateClick }: CalendarViewProps) {
+export default function CalendarView({
+  onDateClick,
+  meetings,
+}: CalendarViewProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const getDaysInMonth = (date: Date) => {
@@ -65,20 +72,18 @@ export default function CalendarView({ onDateClick }: CalendarViewProps) {
     year: "numeric",
   });
 
-  const days = [];
-  for (let i = 0; i < firstDay; i++) {
-    days.push(null);
-  }
-  for (let i = 1; i <= daysInMonth; i++) {
-    days.push(i);
-  }
+  const days: (number | null)[] = [];
+  for (let i = 0; i < firstDay; i++) days.push(null);
+  for (let i = 1; i <= daysInMonth; i++) days.push(i);
 
   const getBookingsForDate = (day: number | null) => {
     if (!day) return [];
     const dateStr = `${currentDate.getFullYear()}-${String(
       currentDate.getMonth() + 1
     ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-    return mockBookings.filter((booking) => booking.date === dateStr);
+    return meetings.filter(
+      (booking) => booking.startTime.slice(0, 10) === dateStr
+    );
   };
 
   const hasBookings = (day: number | null) => {
@@ -108,7 +113,7 @@ export default function CalendarView({ onDateClick }: CalendarViewProps) {
           </Button>
         </div>
       </div>
-      {/* <CalendarHeader WeekView /> */}
+
       <div className="grid grid-cols-7 gap-2 bg-primary/10 py-4">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
           <div
@@ -159,10 +164,14 @@ export default function CalendarView({ onDateClick }: CalendarViewProps) {
                       <div
                         key={booking.id}
                         className={`text-xs px-2 py-1 rounded truncate ${
-                          typeColors[booking.type].bg
-                        } ${typeColors[booking.type].text}`}
+                          typeColors[booking.agenda].bg
+                        } ${typeColors[booking.agenda].text}`}
                       >
-                        {booking.time} {booking.title}
+                        {new Date(booking.startTime).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}{" "}
+                        {booking.title}
                       </div>
                     ))}
                     {bookings.length > 2 && (
@@ -180,12 +189,7 @@ export default function CalendarView({ onDateClick }: CalendarViewProps) {
 
       <div className="grid grid-cols-2 md:grid-cols-4">
         {(
-          [
-            "Important",
-            "Networking",
-            "Project Plan",
-            "Opportunity",
-          ] as MeetingType[]
+          ["Important", "Networking", "Casual", "Opportunity"] as MeetingType[]
         ).map((type) => (
           <div key={type} className="flex items-center gap-2">
             <div className={`w-4 h-4 rounded ${typeColors[type].bg}`}></div>

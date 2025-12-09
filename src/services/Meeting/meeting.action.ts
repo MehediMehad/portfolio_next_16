@@ -4,7 +4,8 @@ import { revalidateTag } from "next/cache";
 import { getAuthToken } from "@/lib/auth";
 import { MeetingListResponse } from "@/types";
 
-const API_BASE_URL = "http://192.168.0.101:3001/api/v1";
+// const API_BASE_URL = "http://192.168.0.101:3001/api/v1";
+const API_BASE_URL = "http://localhost:3001/api/v1";
 
 
 const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
@@ -20,6 +21,8 @@ const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<
     });
 
     const data = await res.json().catch(() => null);
+    console.log(res);
+
 
     if (!res.ok) {
         throw new Error(data?.message || "Request failed");

@@ -1,4 +1,7 @@
+export type TPlatform = "zoom" | "google_meet";
 export type TMeetingStatus = "PENDING" | "ACCEPTED" | "REJECTED";
+export type TMeetingAgenda = "Important" | "Networking" | "Casual" | "Opportunity"
+
 
 interface UserInfo {
     id: string;
@@ -7,15 +10,18 @@ interface UserInfo {
     image?: string;
 }
 
-interface TMeeting {
+export interface TMeeting {
     id: string;
     title: string;
     description: string;
     startTime: string;  // ISO Date
     endTime: string;    // ISO Date
-    platform: "zoom" | "google_meet";
+    platform: TPlatform;
     link: string;
     status: TMeetingStatus;
+    agenda: TMeetingAgenda;
+    createdAt: string;
+    updatedAt: string;
     user: UserInfo;
 }
 

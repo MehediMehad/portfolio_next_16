@@ -1,9 +1,11 @@
 import SchedulePageUi from "@/components/ui/modules/Schedules/SchedulePageUi";
+import { getAllMeetingsAction } from "@/services/Meeting/meeting.action";
 
-const SchedulePage = () => {
+const SchedulePage = async () => {
+  const meetings = await getAllMeetingsAction();
   return (
     <>
-      <SchedulePageUi />
+      <SchedulePageUi meetings={meetings} />
     </>
   );
 };
