@@ -1,18 +1,18 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { addMockBooking, type MeetingType } from "@/lib/mokdata";
-// import { addMockBooking, type MeetingType } from "@/lib/mock-data";
+import { TMeeting } from "@/types";
+import { createMeetingAction } from "@/services/Meeting/meeting.action";
 
 interface BookingModalProps {
   isOpen: boolean;
   date: Date;
   onClose: () => void;
+  onMeetingCreated?: (meeting: TMeeting) => void; // Optional callback after success
 }
 
 const generateTimeSlots = () => {
@@ -30,54 +30,61 @@ export default function BookingModal({
   isOpen,
   date,
   onClose,
+  onMeetingCreated,
 }: BookingModalProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [time, setTime] = useState("10:00");
-  const [type, setType] = useState<MeetingType>("Networking"); // Added type state
-  const [platform, setPlatform] = useState<"google-meet" | "zoom">(
-    "google-meet"
-  );
+  const [startTime, setStartTime] = useState("10:00");
+  const [endTime, setEndTime] = useState("10:30");
+  const [agenda, setAgenda] = useState<TMeeting["agenda"]>("Networking");
+  const [platform, setPlatform] = useState<TMeeting["platform"]>("zoom");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!type) {
-      alert("Please select a meeting type");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    const dateStr = `${date.getFullYear()}-${String(
-      date.getMonth() + 1
-    ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-
-    addMockBooking({
-      id: Date.now().toString(),
-      title,
-      description,
-      date: dateStr,
-      time,
-      platform,
-      type, // Added type to booking
-    });
-
-    setIsSubmitting(false);
-    handleClose();
-  };
 
   const handleClose = () => {
     setTitle("");
     setDescription("");
-    setTime("10:00");
-    setType("Networking");
-    setPlatform("google-meet");
+    setStartTime("10:00");
+    setEndTime("10:30");
+    setAgenda("Networking");
+    setPlatform("zoom");
     onClose();
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setIsSubmitting(true);
+
+    try {
+      // FormData object
+      const formData = new FormData();
+      const dateStr = `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+      // Append form object values
+      formData.append("date", dateStr);
+      formData.append("startTime", startTime);
+      formData.append("endTime", endTime);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("agenda", agenda);
+      formData.append("platform", platform);
+
+      // Server action call
+      const newMeeting = await createMeetingAction(formData);
+
+      if (onMeetingCreated) {
+        onMeetingCreated(newMeeting as TMeeting);
+      }
+
+      handleClose();
+    } catch (err: any) {
+      console.error(err);
+      alert(err.message || "Failed to create meeting");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -112,25 +119,45 @@ export default function BookingModal({
             </div>
           </div>
 
-          <div>
-            <label className="text-sm font-medium text-foreground mb-2 block">
-              Time
-            </label>
-            <select
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            >
-              {timeSlots.map((slot) => (
-                <option key={slot} value={slot}>
-                  {slot}
-                </option>
-              ))}
-            </select>
+          {/* Start & End Time */}
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                Start Time
+              </label>
+              <select
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                className="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                required
+              >
+                {timeSlots.map((slot) => (
+                  <option key={slot} value={slot}>
+                    {slot}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">
+                End Time
+              </label>
+              <select
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                className="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                required
+              >
+                {timeSlots.map((slot) => (
+                  <option key={slot} value={slot}>
+                    {slot}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          {/* Title input */}
+          {/* Title */}
           <div>
             <label className="text-sm font-medium text-foreground mb-2 block">
               Meeting Title
@@ -145,7 +172,7 @@ export default function BookingModal({
             />
           </div>
 
-          {/* Description input */}
+          {/* Description */}
           <div>
             <label className="text-sm font-medium text-foreground mb-2 block">
               Description
@@ -159,6 +186,7 @@ export default function BookingModal({
             />
           </div>
 
+          {/* Agenda */}
           <div>
             <label className="text-sm font-medium text-foreground mb-2 block">
               Meeting Type *
@@ -168,16 +196,16 @@ export default function BookingModal({
                 [
                   "Important",
                   "Networking",
-                  "Project Plan",
+                  "Casual",
                   "Opportunity",
-                ] as MeetingType[]
+                ] as TMeeting["agenda"][]
               ).map((meetingType) => (
                 <button
                   key={meetingType}
                   type="button"
-                  onClick={() => setType(meetingType)}
+                  onClick={() => setAgenda(meetingType)}
                   className={`px-3 py-2 rounded-md border-2 font-medium text-sm transition-all ${
-                    type === meetingType
+                    agenda === meetingType
                       ? "border-primary bg-primary/10 text-foreground"
                       : "border-border text-foreground hover:border-primary"
                   }`}
@@ -188,38 +216,30 @@ export default function BookingModal({
             </div>
           </div>
 
-          {/* Platform selection */}
+          {/* Platform */}
           <div>
             <label className="text-sm font-medium text-foreground mb-2 block">
               Platform
             </label>
             <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => setPlatform("google-meet")}
-                className={`flex-1 px-4 py-2 rounded-md border-2 font-medium transition-all ${
-                  platform === "google-meet"
-                    ? "border-primary bg-primary/10 text-foreground"
-                    : "border-border text-foreground hover:border-primary"
-                }`}
-              >
-                Google Meet
-              </button>
-              <button
-                type="button"
-                onClick={() => setPlatform("zoom")}
-                className={`flex-1 px-4 py-2 rounded-md border-2 font-medium transition-all ${
-                  platform === "zoom"
-                    ? "border-primary bg-primary/10 text-foreground"
-                    : "border-border text-foreground hover:border-primary"
-                }`}
-              >
-                Zoom
-              </button>
+              {(["zoom", "google_meet"] as TMeeting["platform"][]).map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => setPlatform(p)}
+                  className={`flex-1 px-4 py-2 rounded-md border-2 font-medium transition-all ${
+                    platform === p
+                      ? "border-primary bg-primary/10 text-foreground"
+                      : "border-border text-foreground hover:border-primary"
+                  }`}
+                >
+                  {p === "zoom" ? "Zoom" : "Google Meet"}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Submit buttons */}
+          {/* Buttons */}
           <div className="flex gap-3 pt-4">
             <Button
               type="button"

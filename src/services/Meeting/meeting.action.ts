@@ -37,8 +37,8 @@ const createMeetingAction = async (formData: FormData) => {
         startTime: formData.get("startTime") as string,
         endTime: formData.get("endTime") as string,
         title: formData.get("title") as string,
-        description: (formData.get("description") as string) || undefined,
-        agenda: (formData.get("agenda") as string) || undefined,
+        description: (formData.get("description") as string),
+        agenda: (formData.get("agenda") as string),
         platform: (formData.get("platform") as string) || "zoom",
     };
 

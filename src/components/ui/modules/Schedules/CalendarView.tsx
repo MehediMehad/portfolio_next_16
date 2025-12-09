@@ -28,9 +28,9 @@ const typeColors: Record<
     border: "border-type-networking",
   },
   Casual: {
-    bg: "bg-type-casual",
-    text: "text-white",
-    border: "border-type-casual",
+    bg: "bg-type-project",
+    text: "text-",
+    border: "border-type-project",
   },
   Opportunity: {
     bg: "bg-type-opportunity",
