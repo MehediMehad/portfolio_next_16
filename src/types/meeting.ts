@@ -32,3 +32,28 @@ export interface MeetingListResponse {
     message: string;
     data: TMeeting[];
 }
+
+
+
+export interface TCreatedMeeting {
+    id: string
+    title: string
+    description: string
+    startTime: string
+    endTime: string
+    platform: string
+    link: string
+    agenda: string
+    status: string
+    isDeleted: boolean
+    // userId: string
+    createdAt: string
+    updatedAt: string
+}
+
+export interface TCreatedMeetingResponse {
+    success: boolean
+    statusCode: number
+    message: string
+    data: TCreatedMeeting
+}

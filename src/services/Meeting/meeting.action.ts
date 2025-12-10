@@ -1,8 +1,9 @@
 "use server";
 
+import { FieldValues } from "react-hook-form";
 import { revalidateTag } from "next/cache";
 import { getAuthToken } from "@/lib/auth";
-import { MeetingListResponse } from "@/types";
+import { MeetingListResponse, TCreatedMeetingResponse } from "@/types";
 
 // const API_BASE_URL = "http://192.168.0.101:3001/api/v1";
 const API_BASE_URL = "http://localhost:3001/api/v1";
@@ -31,25 +32,17 @@ const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<
     return data as T;
 }
 
-const createMeetingAction = async (formData: FormData) => {
-    const payload = {
-        date: formData.get("date") as string,
-        startTime: formData.get("startTime") as string,
-        endTime: formData.get("endTime") as string,
-        title: formData.get("title") as string,
-        description: (formData.get("description") as string),
-        agenda: (formData.get("agenda") as string),
-        platform: (formData.get("platform") as string) || "zoom",
-    };
 
-    if (!payload.date || !payload.startTime || !payload.endTime || !payload.title) {
-        throw new Error("Missing required fields");
-    }
 
-    const res = await request("meeting", {
+const createMeetingAction = async (formData: FieldValues) => {
+
+    const res = await request<TCreatedMeetingResponse>("meeting", {
         method: "POST",
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formData),
     });
+
+    console.log({ res });
+
 
     revalidateTag("meetings", "default"); // ✅ revalidate after success
 
