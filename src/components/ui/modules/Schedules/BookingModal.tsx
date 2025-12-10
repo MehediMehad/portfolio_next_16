@@ -58,14 +58,11 @@ export default function BookingModal({
     try {
       // FormData object
       const formData = new FormData();
-      const dateStr = `${date.getFullYear()}-${String(
-        date.getMonth() + 1
-      ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
       // Append form object values
-      formData.append("date", dateStr);
-      formData.append("startTime", startTime);
-      formData.append("endTime", endTime);
+      formData.append("date", date.toISOString()); // "2025-12-12T00:00:00.000Z",
+      formData.append("startTime", startTime); // "10:00"
+      formData.append("endTime", endTime); // "10:30"
       formData.append("title", title);
       formData.append("description", description);
       formData.append("agenda", agenda);
