@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createMeetingAction } from "@/services/Meeting/meeting.action";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 import {
   Form,
@@ -61,8 +61,8 @@ BookingModalProps) {
     resolver: zodResolver(meetingSchema),
     defaultValues: {
       date: isoDate,
-      startTime: "10:00",
-      endTime: "10:30",
+      startTime: "07:00",
+      endTime: "07:30",
       title: "",
       description: "",
       agenda: "Networking",
@@ -74,20 +74,20 @@ BookingModalProps) {
 
   const onSubmit = async (values: MeetingFormValues) => {
     toast.success("Meeting created successfully!");
-    // try {
-    //   const meeting = await createMeetingAction(values);
+    try {
+      const meeting = await createMeetingAction(values);
 
-    //   if (meeting.statusCode === 201) {
-    //     toast.success("Meeting created successfully!");
-    //   }
+      if (meeting.statusCode === 201) {
+        toast.success("Meeting created successfully!");
+      }
 
-    //   if (isSubmitting) {
-    //     form.reset();
-    //   }
-    //   onClose();
-    // } catch (err: any) {
-    //   toast.error(err.message || "Failed to create meeting");
-    // }
+      if (isSubmitting) {
+        form.reset();
+      }
+      onClose();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to create meeting");
+    }
   };
 
   if (!isOpen) return null;
@@ -222,7 +222,7 @@ BookingModalProps) {
                           key={p}
                           type="button"
                           onClick={() => field.onChange(p)}
-                          className={`flex-1 px-4 py-2 rounded-md border-2 font-medium ${
+                          className={`flex-1 px-4 py-2 rounded-md border-2 font-medium cursor-pointer ${
                             field.value === p
                               ? "border-primary bg-primary/10"
                               : "border-border"
@@ -250,7 +250,7 @@ BookingModalProps) {
                             key={m}
                             type="button"
                             onClick={() => field.onChange(m)}
-                            className={`px-3 py-2 rounded-md border-2 ${
+                            className={`px-3 py-2 rounded-md border-2 hover:cursor-pointer ${
                               field.value === m
                                 ? "border-primary bg-primary/10"
                                 : "border-border"
@@ -267,13 +267,16 @@ BookingModalProps) {
 
               {/* Submit */}
               <div className="flex gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={onClose}>
+                <Button
+                  className="flex-1 bg-white hover:bg-white/80 dark:bg-muted dark:hover:bg-muted/50 text-black dark:text-foreground hover:text-black dark:hover:text-foreground hover:cursor-pointer"
+                  onClick={onClose}
+                >
                   Cancel
                 </Button>
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1"
+                  className="flex-1 hover:cursor-pointer"
                 >
                   {isSubmitting ? "Booking..." : "Book Meeting"}
                 </Button>
