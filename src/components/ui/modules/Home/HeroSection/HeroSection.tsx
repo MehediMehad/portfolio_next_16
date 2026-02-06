@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
-import profileImage from "@/assets/profile.jpeg";
+// import profileImage from "@/assets/profile.jpeg";
+import profileImage from "@/assets/Gemini_Generated_Image_ipygg9ipygg9ipyg.png";
 
 interface HeroSectionProps {
   isLoaded?: boolean;

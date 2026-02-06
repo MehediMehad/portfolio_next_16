@@ -56,7 +56,7 @@ export default function RootLayout({
               },
             }}
           />
-          {/* <Footer /> */}
+          <Footer />
         </AuthProviders>
       </body>
     </html>

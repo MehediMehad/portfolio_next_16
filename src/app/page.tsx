@@ -11,7 +11,6 @@ const HomePage = () => {
       <HeroSectionClient />
       <ProjectsSection />
       <RecentBlogs />
-      <AuthButtons />
       <ScheduleMeeting />
     </main>
   );
