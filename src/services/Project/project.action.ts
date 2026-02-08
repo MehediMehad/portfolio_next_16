@@ -12,4 +12,13 @@ const getFeaturedProjectsAction = async () => {
     return data;
 }
 
-export { getFeaturedProjectsAction }
+const getProjectDetailsByIdAction = async (id: string) => {
+    const { data } = await request<ProjectListResponse>(`project/${id}`, {
+        method: "GET",
+        next: { tags: ["meetings"] },
+    });
+
+    return data;
+}
+
+export { getFeaturedProjectsAction, getProjectDetailsByIdAction }
