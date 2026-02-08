@@ -9,7 +9,7 @@ import { MeetingListResponse, TCreatedMeetingResponse } from "@/types";
 const API_BASE_URL = "http://localhost:3001/api/v1";
 
 
-const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
+export const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
     const token = await getAuthToken();
 
     const res = await fetch(`${API_BASE_URL}/${endpoint}`, {
@@ -32,17 +32,13 @@ const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<
     return data as T;
 }
 
-
-
 const createMeetingAction = async (formData: FieldValues) => {
-
     const res = await request<TCreatedMeetingResponse>("meeting", {
         method: "POST",
         body: JSON.stringify(formData),
     });
 
     console.log({ res });
-
 
     revalidateTag("meetings", "default"); // ✅ revalidate after success
 

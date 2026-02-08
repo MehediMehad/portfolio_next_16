@@ -1,10 +1,15 @@
 "use client";
 
 import ProjectCard from "@/components/ui/shared/Card/ProjectCard";
-import { featuredProjects } from "@/lib/fakedata";
+import { TProject } from "@/types";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-const ProjectsSection = () => {
+
+const ProjectsSection = ({
+  featuredProjects,
+}: {
+  featuredProjects: TProject[];
+}) => {
   return (
     <section className="py-20 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

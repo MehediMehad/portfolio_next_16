@@ -1,15 +1,10 @@
+import { TProject } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 interface ProjectCardProps {
-  project: {
-    id: number;
-    title: string;
-    description: string;
-    technologies: string[];
-    images: string[];
-  };
+  project: TProject;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
@@ -22,7 +17,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <div className="text-center h-72 w-full">
           {/* Images */}
           <Image
-            src={project.images[0]}
+            src={project.image}
             alt={project.title}
             width={500}
             height={500}
