@@ -1,4 +1,5 @@
 import ProjectDetail from "@/components/ui/modules/Projects/ProjectDetail/ProjectDetail";
+import { getProjectDetailsByIdAction } from "@/services";
 
 export default async function Page({
   params,
@@ -6,5 +7,7 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  return <ProjectDetail id={id} />;
+  const project = await getProjectDetailsByIdAction(id);
+
+  return <ProjectDetail project={project} />;
 }

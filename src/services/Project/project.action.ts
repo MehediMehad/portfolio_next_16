@@ -1,5 +1,5 @@
 import { request } from "../Meeting/meeting.action";
-import { ProjectListResponse } from "@/types";
+import { ProjectDetailsResponse, ProjectListResponse } from "@/types";
 
 
 
@@ -13,7 +13,7 @@ const getFeaturedProjectsAction = async () => {
 }
 
 const getProjectDetailsByIdAction = async (id: string) => {
-    const { data } = await request<ProjectListResponse>(`project/${id}`, {
+    const { data } = await request<ProjectDetailsResponse>(`project/details/${id}`, {
         method: "GET",
         next: { tags: ["meetings"] },
     });

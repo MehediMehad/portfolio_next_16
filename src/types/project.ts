@@ -60,3 +60,10 @@ export interface ProjectListResponse {
     message: string;
     data: TProject[];
 }
+
+export interface ProjectDetailsResponse {
+    success: boolean;
+    statusCode: number;
+    message: string;
+    data: TProject;
+}

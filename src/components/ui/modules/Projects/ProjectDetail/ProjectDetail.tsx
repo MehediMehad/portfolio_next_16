@@ -13,6 +13,7 @@ import Link from "next/link";
 import CTASection from "./CTASection";
 import FadeInUp from "@/components/ui/shared/Animation/FadeInUp";
 import Image from "next/image";
+import { TProject } from "@/types";
 
 function getTechIcon(tech: string): string {
   const icons: Record<string, string> = {
@@ -32,87 +33,7 @@ function getTechIcon(tech: string): string {
   return icons[tech] || "💻";
 }
 
-export default function ProjectDetail({ id }: { id: string }) {
-  const project = {
-    id: id,
-    title: "E-Commerce Platform",
-    subtitle: "Modern shopping experience",
-    description:
-      "A full-featured e-commerce platform with product catalog, shopping cart, and seamless payment integration.",
-    longDescription:
-      "This project showcases a complete e-commerce solution built with modern web technologies. It includes user authentication, product management, shopping cart functionality, and secure payment processing with Stripe integration. The platform is designed with performance, scalability, and user experience as core principles.",
-    category: "Full Stack",
-    technologies: [
-      "React",
-      "Next.js",
-      "Stripe",
-      "PostgreSQL",
-      "Tailwind CSS",
-      "TypeScript",
-    ],
-    image:
-      "https://i.pinimg.com/736x/ef/c8/60/efc8601f4d02e3edea22ec16b902c257.jpg",
-    liveUrl: "#",
-    backendGithubUrl: "#",
-    frontendGithubUrl: "#",
-    type: "Large-Scale Project",
-    projectStatus: "Live in Production",
-    features: [
-      "User authentication and authorization",
-      "Product catalog with search and filtering",
-      "Shopping cart with persistent storage",
-      "Secure payment processing",
-      "Order management system",
-      "Admin dashboard for product management",
-      "Responsive design for all devices",
-      "Real-time inventory updates",
-    ],
-    userRoles: [
-      {
-        role: "Customer",
-        features: [
-          "Browse and search products",
-          "Add items to cart",
-          "Secure checkout with Stripe",
-          "Order history tracking",
-          "Wishlist management",
-        ],
-      },
-      {
-        role: "Admin",
-        features: [
-          "Manage product inventory",
-          "View sales analytics",
-          "Process refunds",
-          "Manage user accounts",
-          "Generate reports",
-        ],
-      },
-    ],
-    highlights: [
-      {
-        title: "Performance Optimized",
-        description:
-          "Lightning-fast load times with optimized images and caching strategies",
-      },
-      {
-        title: "Secure Transactions",
-        description:
-          "Industry-standard encryption and PCI compliance for safe payments",
-      },
-      {
-        title: "Scalable Architecture",
-        description:
-          "Built to handle thousands of concurrent users without performance loss",
-      },
-      {
-        title: "Analytics Dashboard",
-        description:
-          "Real-time insights into sales, user behavior, and inventory metrics",
-      },
-    ],
-  };
-
+export default function ProjectDetail({ project }: { project: TProject }) {
   return (
     <main className="min-h-screen bg-background">
       {/* Back Button */}
@@ -166,7 +87,7 @@ export default function ProjectDetail({ id }: { id: string }) {
                       Status
                     </p>
                     <p className="text-lg font-bold text-accent">
-                      {project.projectStatus}
+                      {project.status}
                     </p>
                   </div>
                 </div>
@@ -182,7 +103,7 @@ export default function ProjectDetail({ id }: { id: string }) {
                   </a>
                   <div className="flex gap-3">
                     <a
-                      href={project.backendGithubUrl}
+                      href={project.backendGitHubUrl}
                       className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-card border border-border text-foreground hover:border-primary hover:text-primary transition-all font-semibold"
                       title="Backend Source Code"
                     >
@@ -190,7 +111,7 @@ export default function ProjectDetail({ id }: { id: string }) {
                       <span className="hidden sm:inline">Backend</span>
                     </a>
                     <a
-                      href={project.frontendGithubUrl}
+                      href={project.frontendGitHubUrl}
                       className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-card border border-border text-foreground hover:border-primary hover:text-primary transition-all font-semibold"
                       title="Frontend Source Code"
                     >
@@ -258,7 +179,7 @@ export default function ProjectDetail({ id }: { id: string }) {
             <div className="mb-12">
               <h2 className="text-4xl font-bold mb-4">Project Overview</h2>
               <p className="text-lg text-foreground/70 max-w-2xl">
-                {project.longDescription}
+                {project.overview}
               </p>
             </div>
 
@@ -291,7 +212,7 @@ export default function ProjectDetail({ id }: { id: string }) {
                   User Capabilities
                 </h3>
                 <div className="space-y-6">
-                  {project.userRoles.map((userRole, index) => (
+                  {project.rolesFeatures.map((userRole, index) => (
                     <div
                       key={index}
                       className="border-l-2 border-primary/50 pl-6 hover:border-primary transition-colors"
