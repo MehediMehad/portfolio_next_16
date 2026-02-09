@@ -5,8 +5,7 @@ import { revalidateTag } from "next/cache";
 import { getAuthToken } from "@/lib/auth";
 import { MeetingListResponse, TCreatedMeetingResponse } from "@/types";
 
-// const API_BASE_URL = "http://192.168.0.101:3001/api/v1";
-const API_BASE_URL = "http://localhost:3001/api/v1";
+const API_BASE_URL = process.env.BACKEND_URL;
 
 
 export const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
